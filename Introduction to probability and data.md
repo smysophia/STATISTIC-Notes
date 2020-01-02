@@ -62,3 +62,16 @@ mutate(dep_type = ifelse(dep_delay < 5, "on time", "delayed"))
 
 a segmented bar plot.`ggplot(data = nycflights, aes(x =  origin, fill = dep_type)) + geom_bar()`
 
+# Week3
+In a simulation, you set the ground rules of a random process and then the computer uses random numbers to generate an outcome that adheres to those rules.
+```r
+coin_outcomes <- c("heads", "tails")
+sample(coin_outcomes, size = 1, replace = TRUE)
+sim_fair_coin <- sample(coin_outcomes, size = 100, replace = TRUE)
+table(sim_fair_coin)
+```
+to simulate an unfair coin that we know only lands heads 20% of the time. We can adjust for this by adding an argument called prob, which provides a vector of two probability weights.
+```r
+sim_unfair_coin <- sample(coin_outcomes, size = 100, replace = TRUE, 
+                          prob = c(0.2, 0.8))
+ ```
