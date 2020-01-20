@@ -75,3 +75,60 @@ to simulate an unfair coin that we know only lands heads 20% of the time. We can
 sim_unfair_coin <- sample(coin_outcomes, size = 100, replace = TRUE, 
                           prob = c(0.2, 0.8))
  ```
+  
+# Week4  
+We can search the names for a fragment of the name by using the `grep("FRAGMENT", variable, value = TRUE)` command
+```r
+grep("singlefav", names(selected_nzes2011), value = TRUE)
+```
+An easy way of tabulating these data to see how many times each level of is to use the group_by() function along with the summarise() command:
+```r
+selected_nzes2011 %>% 
+  group_by(jpartyvote) %>% 
+  summarise(count = n())
+```
+get rid of "don't know" anwers:
+```r
+selected_nzes2011 %>% 
+  filter(jpartyvote != "Don't know") %>%
+  group_by(jpartyvote) %>% 
+  summarise(count = n())
+```
+get rid of NA:
+```r
+selected_nzes2011 %>% 
+  filter(!is.na(X_singlefav)) %>%
+  group_by(X_singlefav) %>% 
+  summarise(count = n())
+```
+  
+numerical summaries (get rid of NA first):
+```r
+selected_nzes2011 %>% 
+  filter(!(is.na(jage))) %>%
+  summarise(agemean = mean(jage), agemedian = median(jage), agesd = sd(jage), 
+            agemin = min(jage), agemax = max(jage))
+```
+filter two outcomes (to select only two of the possible levels in how much people like NZ First):
+```r
+selected_nzes2011 %>% 
+  filter(jnzflike %in% c("0","10")) %>%
+  group_by(jnzflike) %>% 
+  summarise(count = n())
+```
+age and liking NZ First:
+```r
+selected_nzes2011 <- selected_nzes2011 %>% 
+  mutate(retiredage = ifelse(jage >= 65, "retired age", "working age"))
+selected_nzes2011 %>% 
+  group_by(retiredage) %>% 
+  summarise(count = n())
+```
+Change the type of data:  
+factor(storage order ) -> character(text string) -> number(numeric)  
+```r
+selected_nzes2011 <- selected_nzes2011 %>% 
+  mutate(numlikenzf = as.numeric(as.character(jnzflike)))
+```
+
+
