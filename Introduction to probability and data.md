@@ -77,6 +77,13 @@ sim_unfair_coin <- sample(coin_outcomes, size = 100, replace = TRUE,
  ```
   
 # Week4  
+However we can subset the columns of interest and take a closer look at them. 
+```r
+selected_nzes2011 %>% 
+  select(jpartyvote, jdiffvoting, _singlefav) %>% 
+  str()
+```
+
 We can search the names for a fragment of the name by using the `grep("FRAGMENT", variable, value = TRUE)` command
 ```r
 grep("singlefav", names(selected_nzes2011), value = TRUE)
